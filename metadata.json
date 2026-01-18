@@ -1,0 +1,7 @@
+{
+  "name": "IDENTITY AGENT Pro",
+  "description": "Enterprise-grade Identity Verification system using Gemini 3 Pro with Thinking capabilities for advanced forensic document analysis and biometric matching.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
