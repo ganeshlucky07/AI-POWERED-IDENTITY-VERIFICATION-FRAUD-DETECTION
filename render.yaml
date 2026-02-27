@@ -1,12 +1,13 @@
+previewsEnabled: true
 services:
   - type: web
     name: kyc-identity-verification
-    runtime: python
+    env: python
     plan: free
-    buildCommand: "pip install --upgrade pip && pip install -r requirements.txt"
-    startCommand: uvicorn main:app --host 0.0.0.0 --port 10000
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: PYTHON_VERSION
-        value: 3.11
+        value: "3.11"
       - key: KYC_DB_PATH
         value: /tmp/kyc.db
