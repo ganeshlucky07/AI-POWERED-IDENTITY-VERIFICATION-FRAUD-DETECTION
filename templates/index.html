@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>{{ app_name }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}" />
+</head>
+<body>
+    <div class="bg-orbits">
+        <div class="bg-orbit bg-orbit-left"></div>
+        <div class="bg-orbit bg-orbit-right"></div>
+        <div class="bg-orbit bg-orbit-center"></div>
+    </div>
+
+    <header class="header">
+        <h1>{{ app_name }}</h1>
+    </header>
+
+    <main class="main">
+        <section class="card kyc-card">
+            <div class="card-header">
+                <h2>KYC Verification</h2>
+                <p class="card-subtitle">Upload an ID image, capture a live selfie, and get an instant verification decision.</p>
+            </div>
+            <form id="kyc-form" novalidate class="kyc-form">
+                <div class="form-row">
+                    <div class="form-column">
+                        <div class="field">
+                            <label for="id_image">ID Image (Aadhaar / PAN / Passport)</label>
+                            <input type="file" id="id_image" name="id_image" accept="image/*" required />
+                        </div>
+                        <div class="field hidden-input-group">
+                            <label for="selfie_image">Selfie Image</label>
+                            <input type="file" id="selfie_image" name="selfie_image" accept="image/*" />
+                        </div>
+                    </div>
+                    <div class="form-column">
+                        <div class="camera-section">
+                            <p class="camera-note">
+                                Use your device camera to capture a live selfie. This selfie will be used for verification instead of file upload.
+                            </p>
+                            <div class="camera-controls">
+                                <div class="camera-buttons">
+                                    <button type="button" id="start-camera-btn">Start camera &amp; capture face</button>
+                                    <button type="button" id="stop-camera-btn" disabled>Stop camera</button>
+                                    <button type="button" id="capture-id-btn" disabled>Capture ID (optional)</button>
+                                </div>
+                                <div class="camera-preview">
+                                    <video id="camera-video" autoplay playsinline class="hidden"></video>
+                                    <canvas id="camera-canvas" class="hidden"></canvas>
+                                </div>
+                                <div class="camera-status-row">
+                                    <span id="id-capture-status" class="camera-status"></span>
+                                    <span id="selfie-capture-status" class="camera-status"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-footer">
+                    <button type="submit" id="submit-btn">Run KYC Check</button>
+                    <div class="form-status">
+                        <div id="loader" class="loader hidden">Processing images, please wait...</div>
+                        <p id="error-message" class="error hidden"></p>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <section id="result" class="card result-card hidden">
+            <div class="card-header">
+                <h2>KYC Result</h2>
+            </div>
+            <div class="result-grid">
+                <div class="result-column">
+                    <div class="result-metadata">
+                        <div class="result-label">Status</div>
+                        <div class="result-value"><span id="result-status"></span></div>
+
+                        <div class="result-label">Face match score</div>
+                        <div class="result-value"><span id="result-face-score"></span></div>
+
+                        <div class="result-label">Face match result</div>
+                        <div class="result-value"><span id="result-face-match"></span></div>
+
+                        <div class="result-label">Fraud risk</div>
+                        <div class="result-value"><span id="result-fraud-risk"></span></div>
+
+                        <div class="result-label">Confidence score</div>
+                        <div class="result-value"><span id="result-confidence"></span></div>
+
+                        <div class="result-label">Request ID</div>
+                        <div class="result-value"><span id="result-request-id"></span></div>
+
+                        <div class="result-label">Processing time</div>
+                        <div class="result-value"><span id="result-processing-time"></span> ms</div>
+                    </div>
+
+                    <h3>Fraud reasons</h3>
+                    <ul id="result-fraud-reasons"></ul>
+                </div>
+                <div class="result-column">
+                    <h3>Extracted ID information</h3>
+                    <p><strong>Name:</strong> <span id="result-name"></span></p>
+                    <p><strong>ID number:</strong> <span id="result-id-number"></span></p>
+                    <p><strong>ID validity:</strong> <span id="result-id-validity"></span></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', path='script.js') }}"></script>
+</body>
+</html>
