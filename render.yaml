@@ -1,12 +1,11 @@
 services:
   - type: web
     name: kyc-identity-verification
-    env: python
-    plan: free
-    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
-    startCommand: uvicorn main:app --host 0.0.0.0 --port 10000
+    runtime: docker
+    plan: standard
+    dockerfilePath: ./Dockerfile
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.6
       - key: KYC_DB_PATH
-        value: kyc.db
+        value: /data/kyc.db
